@@ -1,0 +1,9 @@
+para entrar como admin ingresar en el inicio de usuario los siguientes datos
+nombre: Debug
+apellido: Mode
+dni: 1235
+presionar enviar cerrar el cartel de usuario no encontrado y presionar ctrl+shift+space
+tambien se puede iniciar si se ingresa el argumento debugmode al iniciar el programa
+
+Usuario: DireccionNacionalElectoral
+Password: Votacion2021
