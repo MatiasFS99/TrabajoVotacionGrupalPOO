@@ -68,4 +68,10 @@ public class Ventana extends JFrame{
         salida.add(boton);
         return salida;
     }
+
+    public static JPanel crearPanelMedio(JList lista){
+        JPanel salida = new JPanel(new FlowLayout());
+        salida.add(lista);
+        return salida;
+    }
 }

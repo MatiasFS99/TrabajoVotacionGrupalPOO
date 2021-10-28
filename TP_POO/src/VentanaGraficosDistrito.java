@@ -2,7 +2,7 @@ import java.util.Map;
 
 public class VentanaGraficosDistrito {
     public VentanaGraficosDistrito(String[] nombres, Double[] datos){
-        Ventana v = new Ventana("Graficos de Presentismo", 700, 700, false);
+        Ventana v = new Ventana("Graficos de Presentismo", 700, 800, false);
         GraficoTorta grafico = new GraficoTorta(nombres, datos);
         v.getContentPane().add(grafico);
         v.setVisible(true);

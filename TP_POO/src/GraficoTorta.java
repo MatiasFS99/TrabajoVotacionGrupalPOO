@@ -141,6 +141,7 @@ public class GraficoTorta extends JPanel
                 TmpDatos.add(dat);
             }else{
                 TmpNombres.remove(i);
+                i--;
             }
             i++;
         }

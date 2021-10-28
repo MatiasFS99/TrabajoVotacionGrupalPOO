@@ -33,7 +33,7 @@ public class VentanaLoginDebug {
                 if(!user.getText().equals("") && !String.valueOf(password.getPassword()).equals("")){
                     try{
                         if(comprobarCredenciales(PassHash(user.getText()), PassHash(String.valueOf(password.getPassword())))){
-                            new VentanaDistritoAdmin();
+                            new VentanaMainAdmin();
                             v.dispose();
                         } else {
                             intentos -= 1;

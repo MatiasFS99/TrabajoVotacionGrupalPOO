@@ -30,6 +30,7 @@ public class VentanaGraficosMesa {
                     int i=0;
                     while(it.hasNext()){
                         datos[i] = mesa.getVotosDiputados().get(it.next())+0.0;
+                        i++;
                     }
                     new VentanaGraficosDistrito(CamaraElectoral.nombresPartidos(mesa.getVotosDiputados()), datos);
                 }
@@ -41,6 +42,7 @@ public class VentanaGraficosMesa {
                     int i=0;
                     while(it.hasNext()){
                         datos[i] = mesa.getVotosSenadores().get(it.next())+0.0;
+                        i++;
                     }
                     new VentanaGraficosDistrito(CamaraElectoral.nombresPartidos(mesa.getVotosSenadores()), datos);
                 }

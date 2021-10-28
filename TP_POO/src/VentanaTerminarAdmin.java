@@ -39,6 +39,7 @@ public class VentanaTerminarAdmin {
                             if(reply2==JOptionPane.YES_OPTION){
                                 Main.Abierto = false;
                                 JOptionPane.showMessageDialog(null,"Elecciones terminadas");
+                                new VentanaResultadosFinales();
                                 v.dispose();
                             }else{
                                 v.dispose();

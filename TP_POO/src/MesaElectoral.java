@@ -44,12 +44,15 @@ public class MesaElectoral {
     }
 
     public void agregarCandidatos(List<Lista> listas){
-        this.votosDiputados.put(-1, 0);
-        this.votosSenadores.put(-1, 0);
         for (Lista lista : listas) {
             this.votosDiputados.put(lista.getNroDeLista(), 0);
             this.votosSenadores.put(lista.getNroDeLista(), 0);
         }
+    }
+
+    public void agregarCandidatos(Lista lista){
+        this.votosDiputados.put(lista.getNroDeLista(), 0);
+        this.votosSenadores.put(lista.getNroDeLista(), 0);
     }
 
     public ElectorInscripto getPresidente() {
