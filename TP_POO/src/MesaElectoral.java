@@ -1,4 +1,3 @@
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -8,17 +7,22 @@ public class MesaElectoral {
     private ElectorInscripto presidente;
     private ElectorInscripto suplenteDePresidente;
     private List<ElectorInscripto> electores;
-    private Map<PartidoPoliticoAlianza,Integer> votos = new HashMap<PartidoPoliticoAlianza,Integer>();
-    private PartidoPoliticoAlianza blanco = new PartidoPoliticoAlianza("Blanco", null);
+    private Map<Integer,Integer> votosDiputados = new HashMap<Integer,Integer>();
+    private Map<Integer,Integer> votosSenadores = new HashMap<Integer,Integer>();
     private int votosFaltantes;
     private int numeroDeMesa;
 
-    public MesaElectoral(List<ElectorInscripto> electores, List<PartidoPoliticoAlianza> partidos) {
+    public MesaElectoral(List<ElectorInscripto> electores, List<Lista> listas) {
         this.electores = electores;
         ObtenerAutoridades();
         this.votosFaltantes = electores.size();
-        this.votos.put(blanco, 0);
-        agregarPartidos(partidos);
+        agregarCandidatos(listas);
+    }
+
+    public MesaElectoral(List<ElectorInscripto> electores) {
+        this.electores = electores;
+        ObtenerAutoridades();
+        this.votosFaltantes = electores.size();
     }
 
     private void ObtenerAutoridades(){
@@ -39,11 +43,15 @@ public class MesaElectoral {
         }
     }
 
-    private void agregarPartidos(List<PartidoPoliticoAlianza> partidoPoliticoAlianzas){
-        for (PartidoPoliticoAlianza partido : partidoPoliticoAlianzas) {
-            votos.put(partido, 0);
+    public void agregarCandidatos(List<Lista> listas){
+        this.votosDiputados.put(-1, 0);
+        this.votosSenadores.put(-1, 0);
+        for (Lista lista : listas) {
+            this.votosDiputados.put(lista.getNroDeLista(), 0);
+            this.votosSenadores.put(lista.getNroDeLista(), 0);
         }
     }
+
     public ElectorInscripto getPresidente() {
         return this.presidente;
     }
@@ -87,54 +95,47 @@ public class MesaElectoral {
 
     public int conteoVotantes(){
         int total = 0;
-        Iterator<PartidoPoliticoAlianza> it = votos.keySet().iterator();
+        Iterator<Integer> it = votosDiputados.keySet().iterator();
         while(it.hasNext()){
-            PartidoPoliticoAlianza partido = it.next();
-            total += votos.get(partido);
+            Integer list = it.next();
+            total += votosDiputados.get(list);
         }
         return total;
     }
 
-    public Map<PartidoPoliticoAlianza,Integer> getVotos(){
-        return this.votos;
+    public Map<Integer,Integer> getVotosDiputados(){
+        return this.votosDiputados;
     }
 
-    public int conteoVotosBlanco(){
-        return votos.get(blanco);
+    public Map<Integer,Integer> getVotosSenadores(){
+        return this.votosSenadores;
     }
 
-    public int conteoVotosPartidoAlianza(PartidoPoliticoAlianza partido){
-        return votos.get(partido);
+    public int conteoVotosBlancoSenadores(){
+        return votosSenadores.get(-1);
+    }
+
+    public int conteoVotosBlancoDiputados(){
+        return votosDiputados.get(-1);
     }
 
     public int getVotosFaltantes(){
         return this.votosFaltantes;
     }
 
+    public Double getPorcentajeAusencia(){
+        return Double.valueOf((this.votosFaltantes*100)/electores.size());
+    }
+
     public int getTotalVotantes(){
         return this.electores.size();
     }
 
-    public void Votar(ElectorInscripto votante, String partido){
-        PartidoPoliticoAlianza voto = null;
-        for (PartidoPoliticoAlianza part : getPartidos()) {
-            if(partido.equals(part.getNombre())){
-                voto = part;
-                break;
-            }
-        }
-        this.votos.replace(voto, this.votos.get(voto)+1);
+    public void Votar(ElectorInscripto votante, Integer diputado, Integer senador){
+        this.votosDiputados.replace(diputado, votosDiputados.get(diputado)+1);
+        this.votosSenadores.replace(senador, votosDiputados.get(senador)+1);
         votante.setVoto();
         this.votosFaltantes -= 1;
-    }
-
-    public List<PartidoPoliticoAlianza> getPartidos(){
-        List<PartidoPoliticoAlianza> partidos = new ArrayList<PartidoPoliticoAlianza>();
-        Iterator<PartidoPoliticoAlianza> it = votos.keySet().iterator();
-        while(it.hasNext()){
-            partidos.add(it.next());
-        }
-        return partidos;
     }
 
     public void setNumeroMesa(int numero){

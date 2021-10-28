@@ -9,17 +9,21 @@ public class ManejadorMain implements ActionListener {
 
     public void actionPerformed(ActionEvent e) {
         try{
-            String strdni = dni.getText().replace(".", "");
-            int respuesta = VotoElectronico.ComprobarDatos(Integer.parseInt(strdni));
-            if(respuesta == 1){
+            if(Main.Abierto){
+                String strdni = dni.getText().replace(".", "");
+                int respuesta = VotoElectronico.ComprobarDatos(Integer.parseInt(strdni));
+                if(respuesta == 1){
 
-                new VentanaVotacion((VotoElectronico.getPersonaActual(Integer.parseInt(strdni))));
-            } else {
-                if(respuesta == 2){
-                    JOptionPane.showMessageDialog(null,"' Dni: '" + strdni +"' Ya voto");
+                    new VentanaVotacion((VotoElectronico.getPersonaActual(Integer.parseInt(strdni))));
                 } else {
-                    if(respuesta == 3)JOptionPane.showMessageDialog(null,"' Dni: '" + strdni +"' No existe en el padron");
+                    if(respuesta == 2){
+                        JOptionPane.showMessageDialog(null,"' Dni: '" + strdni +"' Ya voto");
+                    } else {
+                        if(respuesta == 3)JOptionPane.showMessageDialog(null,"' Dni: '" + strdni +"' No existe en el padron");
+                    }
                 }
+            } else {
+                JOptionPane.showMessageDialog(null,"Las Elecciones ya cerraron");
             }
         }
         catch(Exception exc){

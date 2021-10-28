@@ -14,6 +14,13 @@ public class Persona {
         setFchaNacimiento(FchaNacimiento);
     }
 
+    public Persona(String nombre, String apellido, int dni, LocalDate FchaNacimiento) {
+        this.nombre = nombre;
+        this.apellido = apellido;
+        this.dni = dni;
+        this.FchaNacimiento = FchaNacimiento;
+    }
+
     public String getNombre() {
         return this.nombre;
     }

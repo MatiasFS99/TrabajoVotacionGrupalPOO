@@ -6,23 +6,24 @@
     "configurations": [
         {
             "type": "java",
-            "name": "Launch PieChartExample",
+            "name": "Launch Main",
             "request": "launch",
-            "mainClass": "PieChartExample",
+            "mainClass": "Main",
             "projectName": "TP_POO"
+        },
+        {
+            "type": "java",
+            "name": "Launch Main Admin",
+            "request": "launch",
+            "mainClass": "Main",
+            "projectName": "TP_POO",
+            "args": "debugmode"
         },
         {
             "type": "java",
             "name": "Launch Current File",
             "request": "launch",
             "mainClass": "${file}"
-        },
-        {
-            "type": "java",
-            "name": "Launch Main",
-            "request": "launch",
-            "mainClass": "Main",
-            "projectName": "TP_POO"
         }
     ]
 }

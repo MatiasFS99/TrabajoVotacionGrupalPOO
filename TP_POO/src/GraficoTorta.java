@@ -17,13 +17,49 @@ public class GraficoTorta extends JPanel
     private final int PAD = 30;
     private Font font;
     private NumberFormat numberFormat;
-    private int[] marks = null;
+    private Double[] marks = null;
     private String[] names = null;
 
-    public GraficoTorta(Map<PartidoPoliticoAlianza,Integer> lista)
+    // public GraficoTorta(Map<PartidoPoliticoAlianza,Integer> lista)
+    // {
+    //     List<String> nombres = new ArrayList<String>();
+    //     List<Integer> datos = new ArrayList<Integer>();
+    //     PartidoPoliticoAlianza tmpartido = null;
+    //     Iterator<PartidoPoliticoAlianza> it = lista.keySet().iterator();
+    //     while(it.hasNext()){
+    //         tmpartido = it.next();
+    //         if(lista.get(tmpartido)>0){
+    //             nombres.add(tmpartido.getNombre());
+    //             datos.add(lista.get(tmpartido));
+    //         }
+    //     }
+    //     //es necesario para convertir de list a array
+    //     Double[] arrayCarga = new Double[datos.size()];
+    //     int count = 0;
+    //     for (Integer i : datos) {
+    //         arrayCarga[count] = Double.valueOf(i);
+    //         count++;
+    //     }
+
+    //     String[] cargaNombres = new String[nombres.size()];
+    //     count=0;
+    //     for (String i : nombres) {
+    //         cargaNombres[count] = i;
+    //         count++;
+    //     }
+    //     this.names = cargaNombres;
+    //     this.marks = arrayCarga;
+
+    //     font = new Font("Book Antiqua", Font.BOLD, 20);
+    //     numberFormat = NumberFormat.getPercentInstance();
+    //     addComponentListener(new ComponentAdapter()
+    //     {});
+    // }
+
+    public GraficoTorta(Map<PartidoPoliticoAlianza,Double> lista)
     {
         List<String> nombres = new ArrayList<String>();
-        List<Integer> datos = new ArrayList<Integer>();
+        List<Double> datos = new ArrayList<Double>();
         PartidoPoliticoAlianza tmpartido = null;
         Iterator<PartidoPoliticoAlianza> it = lista.keySet().iterator();
         while(it.hasNext()){
@@ -34,9 +70,9 @@ public class GraficoTorta extends JPanel
             }
         }
         //es necesario para convertir de list a array
-        int[] arrayCarga = new int[datos.size()];
+        Double[] arrayCarga = new Double[datos.size()];
         int count = 0;
-        for (Integer i : datos) {
+        for (Double i : datos) {
             arrayCarga[count] = i;
             count++;
         }
@@ -78,9 +114,45 @@ public class GraficoTorta extends JPanel
             salidaNombres[i]= string;
             i++;
         }
-        int[] salidaDatos = new int[TmpDatos.size()];
+        Double[] salidaDatos = new Double[TmpDatos.size()];
         i=0;
         for (int dat : TmpDatos) {
+            salidaDatos[i]= Double.valueOf(dat);
+            i++;
+        }
+        this.names = salidaNombres;
+        this.marks = salidaDatos;
+        font = new Font("Book Antiqua", Font.BOLD, 20);
+        numberFormat = NumberFormat.getPercentInstance();
+        addComponentListener(new ComponentAdapter()
+        {});
+    }
+
+    public GraficoTorta(String[] nombres, Double[] datos)
+    {
+        List<String> TmpNombres = new ArrayList<String>();
+        List<Double> TmpDatos = new ArrayList<Double>();
+        for (String string : nombres) {
+            TmpNombres.add(string);
+        }
+        int i = 0;
+        for (Double dat : datos) {
+            if(dat>0){
+                TmpDatos.add(dat);
+            }else{
+                TmpNombres.remove(i);
+            }
+            i++;
+        }
+        String[] salidaNombres = new String[TmpNombres.size()];
+        i=0;
+        for (String string : TmpNombres) {
+            salidaNombres[i]= string;
+            i++;
+        }
+        Double[] salidaDatos = new Double[TmpDatos.size()];
+        i=0;
+        for (Double dat : TmpDatos) {
             salidaDatos[i]= dat;
             i++;
         }

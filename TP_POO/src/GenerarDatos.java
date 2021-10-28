@@ -1,9 +1,11 @@
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 public class GenerarDatos {
 
-    private static String[] LugaresPersonas = new String[]{"RioTercero",
+    private static String[] LugaresPersonas = new String[]{
+        "RioTercero",
         "Marcos Paz",
         "Chacarita",
         "Concordia",
@@ -36,9 +38,70 @@ public class GenerarDatos {
         List<PartidoPoliticoAlianza> salida = new ArrayList<PartidoPoliticoAlianza>();
         salida.add(new PartidoPoliticoAlianza("Frente Progresista", null));
         salida.add(new PartidoPoliticoAlianza("Unidos por el Capital", null));
-        salida.add(new PartidoPoliticoAlianza("Camino Social", null));
-        salida.add(new PartidoPoliticoAlianza("La Nueva Ola", null));
-        salida.add(new PartidoPoliticoAlianza("Conservar Bienestar",null));
+        return salida;
+    }
+
+    public static void asignarListasMesas(){
+        for (Seccion sec : Main.distritos.get(0).getSecciones()) {
+            for (Circuito circ : sec.getCircuitos()) {
+                for (MesaElectoral mesa : circ.getMesas()) {
+                    mesa.agregarCandidatos(Main.listas.subList(0, 2));
+                }
+            }
+        }
+        for (Seccion sec : Main.distritos.get(1).getSecciones()) {
+            for (Circuito circ : sec.getCircuitos()) {
+                for (MesaElectoral mesa : circ.getMesas()) {
+                    mesa.agregarCandidatos(Main.listas.subList(2,4));
+                }
+            }
+        }
+    }
+    public static List<Candidato> candidatos(){
+        List<Candidato> salida = new ArrayList<Candidato>();
+        salida.add(new Candidato("Izan", "Real", 31350291, "26/12/1975", Cargo.SENADOR, new Domicilio("", "", "")));
+        salida.add(new Candidato("Edgar", "Aviles", 33562588, "03/09/1972", Cargo.SENADOR, new Domicilio("", "", "")));
+        salida.add(new Candidato("Letícia", "Dorado", 40213123, "05/03/1971", Cargo.DIPUTADO, new Domicilio("", "", "")));
+        salida.add(new Candidato("Siham", "Alcazar", 44662520, "15/12/1985", Cargo.DIPUTADO, new Domicilio("", "", "")));
+        salida.add(new Candidato("Jasmin", "Dupont", 44006157, "30/06/1978", Cargo.DIPUTADO, new Domicilio("", "", "")));
+        salida.add(new Candidato("Lola", "Pulido", 39180217, "18/01/1990", Cargo.DIPUTADO, new Domicilio("", "", "")));
+        salida.add(new Candidato("Nicole", "Ribera", 30266932, "23/11/1984", Cargo.DIPUTADO, new Domicilio("", "", "")));
+        salida.add(new Candidato("Jose", "Duran", 43596024, "25/07/1973", Cargo.SENADOR, new Domicilio("", "", "")));
+        salida.add(new Candidato("Miguel", "Vera", 33080472, "01/05/1978", Cargo.SENADOR, new Domicilio("", "", "")));
+        salida.add(new Candidato("Manuela", "Avila", 41348694, "11/09/1987", Cargo.DIPUTADO, new Domicilio("", "", "")));
+        salida.add(new Candidato("Michael", "Ureña", 41077481, "07/01/1973", Cargo.DIPUTADO, new Domicilio("", "", "")));
+        salida.add(new Candidato("Jean", "Mesa", 34982920, "29/08/1984", Cargo.DIPUTADO, new Domicilio("", "", "")));
+        salida.add(new Candidato("Cristobal", "Gamero", 40463208, "17/06/1973", Cargo.DIPUTADO, new Domicilio("", "", "")));
+        salida.add(new Candidato("Amina", "Poveda", 30104120, "27/10/1988", Cargo.DIPUTADO, new Domicilio("", "", "")));
+        salida.add(new Candidato("Chloe", "Salazar", 32740332, "01/01/1977", Cargo.SENADOR, new Domicilio("", "", "")));
+        salida.add(new Candidato("Nagore", "Murcia", 32754221, "14/02/1979", Cargo.DIPUTADO, new Domicilio("", "", "")));
+        salida.add(new Candidato("Toni", "Alves", 44394749, "28/09/1976", Cargo.DIPUTADO, new Domicilio("", "", "")));
+        salida.add(new Candidato("Gumersindo", "Estevez", 38773648, "17/02/1974", Cargo.DIPUTADO, new Domicilio("", "", "")));
+        salida.add(new Candidato("Esteban", "Amador", 35590237, "22/04/1985", Cargo.SENADOR, new Domicilio("", "", "")));
+        salida.add(new Candidato("Erica", "Montilla", 41749924, "29/03/1991", Cargo.DIPUTADO, new Domicilio("", "", ""))); 
+        salida.add(new Candidato("Gerardo", "Molinaro",31515613, "25/12/1968", Cargo.DIPUTADO, new Domicilio("", "", ""))); 
+        salida.add(new Candidato("Ramon", "Olivera", 32585945, "16/04/1975", Cargo.DIPUTADO, new Domicilio("", "", "")));
+        return salida;
+    }
+
+    public static List<Lista> listas(){
+        List<Lista> salida = new ArrayList<Lista>();
+        Lista l1 = new Lista("Lista Progreso", 1, Main.partidos.get(0),Main.candidatos.subList(0, 7));
+        Lista l2 =new Lista("Adelante Comercio", 2, Main.partidos.get(1),Main.candidatos.subList(7, 14));
+        Lista l3 =new Lista("Vamos a Progresar", 3, Main.partidos.get(0),Main.candidatos.subList(14, 19));
+        Lista l4 =new Lista("Economia Fuerte", 4, Main.partidos.get(1),Main.candidatos.subList(19, 22));
+        if(CamaraElectoral.incluirLista(l1)){
+            salida.add(l1);
+        }
+        if(CamaraElectoral.incluirLista(l2)){
+            salida.add(l2);
+        }
+        if(CamaraElectoral.incluirLista(l3)){
+            salida.add(l3);
+        }
+        if(CamaraElectoral.incluirLista(l4)){
+            salida.add(l4);
+        }
         return salida;
     }
 
@@ -55,7 +118,7 @@ public class GenerarDatos {
                     tmp.get(j).add(persona);
                 }
             }
-            salida.add(new MesaElectoral(tmp.get(j), partidos()));
+            salida.add(new MesaElectoral(tmp.get(j)));
             j++;
         }
         return salida;
@@ -116,8 +179,8 @@ public class GenerarDatos {
 
     public static List<Distrito> distritos(){
         List<Distrito> salida = new ArrayList<Distrito>();
-        salida.add(new Distrito("BSAS", 15, 5, Main.secciones.subList(0, 2), null));
-        salida.add(new Distrito("Cordoba", 20, 10, Main.secciones.subList(2, 3), null));
+        salida.add(new Distrito("BSAS", 5, 2, Main.secciones.subList(0, 2)));
+        salida.add(new Distrito("Cordoba", 3, 1, Main.secciones.subList(2, 3)));
         return salida;
     }
     

@@ -2,15 +2,20 @@ import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.Objects;
 
-public class ElectorInscripto {
-    private Persona persona;
+public class ElectorInscripto extends Persona {
     private Domicilio Domicilio;
     private String LugarVotacion;
     private MesaElectoral mesaAsignada = null;
     private Boolean voto = false;
 
+    public ElectorInscripto(String nombre, String apellido, int dni, String FchaNacimiento, Domicilio domicilio, String lugarVotacion) {
+        super(nombre, apellido, dni, FchaNacimiento);
+        this.Domicilio = domicilio;
+        this.LugarVotacion = lugarVotacion;
+    }
+
     public ElectorInscripto(Persona persona, Domicilio domicilio, String lugarVotacion) {
-        this.persona = persona;
+        super(persona.getNombre(), persona.getApellido(), persona.getDni(), persona.getFchaNacimiento());
         this.Domicilio = domicilio;
         this.LugarVotacion = lugarVotacion;
     }
@@ -21,14 +26,6 @@ public class ElectorInscripto {
 
     public void setMesaAsignada(MesaElectoral mesa){
         this.mesaAsignada = mesa;
-    }
-
-    public Persona getPersona() {
-        return this.persona;
-    }
-
-    public void setPersona(Persona persona) {
-        this.persona = persona;
     }
 
     public Domicilio getDomicilio() {
@@ -53,7 +50,7 @@ public class ElectorInscripto {
 
     public long getEdad(){
         LocalDate FActual = LocalDate.now(ZoneId.of("America/Buenos_Aires"));
-        long years = java.time.temporal.ChronoUnit.YEARS.between(this.persona.getFchaNacimiento(),FActual);
+        long years = java.time.temporal.ChronoUnit.YEARS.between(this.getFchaNacimiento(),FActual);
         return years;
     }
 
@@ -68,15 +65,15 @@ public class ElectorInscripto {
             return false;
         }
         ElectorInscripto electorInscripto = (ElectorInscripto) o;
-        return Objects.equals(persona, electorInscripto.persona) && Objects.equals(Domicilio, electorInscripto.Domicilio) && Objects.equals(LugarVotacion, electorInscripto.LugarVotacion);
+        return Objects.equals(Domicilio, electorInscripto.Domicilio) && Objects.equals(LugarVotacion, electorInscripto.LugarVotacion);
     }
 
     public boolean equals(int dni){
-        return (this.persona.getDni()==dni);
+        return (this.getDni()==dni);
     }
 
     public String toString(){
-        return this.persona.getNombre()+"-"+this.persona.getApellido()+"-"+this.persona.getDni();
+        return this.getNombre()+"-"+this.getApellido()+"-"+this.getDni();
     }
 
 }

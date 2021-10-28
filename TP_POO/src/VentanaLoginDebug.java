@@ -33,7 +33,7 @@ public class VentanaLoginDebug {
                 if(!user.getText().equals("") && !String.valueOf(password.getPassword()).equals("")){
                     try{
                         if(comprobarCredenciales(PassHash(user.getText()), PassHash(String.valueOf(password.getPassword())))){
-                            new VentanaMainAdmin();
+                            new VentanaDistritoAdmin();
                             v.dispose();
                         } else {
                             intentos -= 1;
@@ -83,7 +83,7 @@ public class VentanaLoginDebug {
         return enc.encodeToString(hash);
     }
 
-    public boolean comprobarCredenciales(String user, String pass){
+    public static boolean comprobarCredenciales(String user, String pass){
         return user.equals("pLb/0OEQpTniwgBxZ/i3gQ==") && pass.equals("SaGF+LYHTTIksZj+8Cio2A==");
     }
 }

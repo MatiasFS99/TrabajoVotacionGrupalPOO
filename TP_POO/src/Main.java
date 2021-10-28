@@ -6,17 +6,22 @@ import javax.swing.*;
 import java.awt.font.TextAttribute;
 
 public class Main {
+    public static List<Candidato> candidatos = GenerarDatos.candidatos();
+    public static List<PartidoPoliticoAlianza> partidos = GenerarDatos.partidos();
+    public static List<Lista> listas = GenerarDatos.listas();
     public static List<Persona> personas = GenerarDatos.personas();
     public static List<ElectorInscripto> electores = GenerarDatos.elector();
     public static List<MesaElectoral> mesasElectorales = GenerarDatos.mesasElectorales();
     public static List<Circuito> circuitos = GenerarDatos.circuitos();
     public static List<Seccion> secciones = GenerarDatos.secciones();
     public static List<Distrito> distritos = GenerarDatos.distritos();
+    public static Boolean Abierto = true;
     
 
     public static Font ftitulo = new Font("TimesRoman", (Font.BOLD + Font.ITALIC), 20);
     public static Map subrrayado = ftitulo.getAttributes();
     private static void init(){
+        GenerarDatos.asignarListasMesas();
         subrrayado.put(TextAttribute.UNDERLINE, TextAttribute.UNDERLINE_ON);
         ftitulo = ftitulo.deriveFont(subrrayado);
         asignarMesas();
@@ -70,7 +75,7 @@ public class Main {
             KeyStroke combinacionDebug = KeyStroke.getKeyStroke("shift ctrl pressed SPACE");
             Action abrirDebug = new AbstractAction() {
                 public void actionPerformed(ActionEvent actionEvent) {
-                    if(Dni.getText().equals("Debug Mode 1235")){
+                    if(Dni.getText().equals("Debug Mode 1235")||!Abierto){
                         new VentanaLoginDebug();
                     }
                 }
@@ -96,8 +101,24 @@ public class Main {
         cp.add(Lurna, BorderLayout.WEST);
         cp.add(Lescudo, BorderLayout.EAST);
         principal.setVisible(true);
-        
 
+        botEnviar.addActionListener(new ActionListener(){
+            public void actionPerformed(ActionEvent e){
+                if(!Abierto){
+                    Dni.setEditable(false);
+                    botEnviar.setEnabled(false);
+                    tituloCentro.setText("las elecciones finalizaron");
+                }
+            }
+        });
+        Dni.addActionListener(new ActionListener(){
+            public void actionPerformed(ActionEvent e){
+                if(!Abierto){
+                    Dni.setEditable(false);
+                    botEnviar.setEnabled(false);
+                }
+            }
+        });
     }
 
     public static void main(String[] args) {

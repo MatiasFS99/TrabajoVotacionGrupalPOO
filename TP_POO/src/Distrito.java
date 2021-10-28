@@ -1,4 +1,5 @@
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
@@ -8,14 +9,12 @@ public class Distrito {
     private int CantPLibresDip;
     private int CantPLibresSen;
     private List<Seccion> secciones;
-    private List<Lista> listas;
 
-    public Distrito(String nombre, int CantPLibresDip, int CantPLibresSen, List<Seccion> seccciones, List<Lista> listas) {
+    public Distrito(String nombre, int CantPLibresDip, int CantPLibresSen, List<Seccion> seccciones) {
         this.nombre = nombre;
         this.CantPLibresDip = CantPLibresDip;
         this.CantPLibresSen = CantPLibresSen;
         this.secciones = seccciones;
-        this.listas = listas;
     }
     
     public String getNombre() {
@@ -50,14 +49,6 @@ public class Distrito {
         this.secciones = secciones;
     }
 
-    public List<Lista> getListas() {
-        return this.listas;
-    }
-
-    public void setListas(List<Lista> listas) {
-        this.listas = listas;
-    }
-
     public int totalVotantes(){
         int total = 0;
         for (Seccion seccion : this.secciones) {
@@ -70,30 +61,43 @@ public class Distrito {
         return total;
     }
 
-    public int totalVotosEnBlanco(){
+    public Double procentajeAusencia(){
+        int i = 0;
+        Double porcentaje = 0.0;
+        for (Seccion seccion : secciones) {
+            for (Circuito circ : seccion.getCircuitos()) {
+                for (MesaElectoral mesa : circ.getMesas()) {
+                    porcentaje += mesa.getPorcentajeAusencia();
+                    i++;
+                }
+            }
+        }
+        return porcentaje/i;
+    }
+    public int totalVotosEnBlancoDiputados(){
         int total = 0;
         for (Seccion seccion : this.secciones) {
             for (Circuito circuito : seccion.getCircuitos()){
                 for (MesaElectoral mesa : circuito.getMesas()){
-                    total += mesa.conteoVotosBlanco();
+                    total += mesa.conteoVotosBlancoDiputados();
                 }
             }
         }
         return total;
     }
 
-    public int totalVotosPorPartidoAlianza(PartidoPoliticoAlianza partido){
+    public int totalVotosEnBlancoSenadores(){
         int total = 0;
         for (Seccion seccion : this.secciones) {
             for (Circuito circuito : seccion.getCircuitos()){
                 for (MesaElectoral mesa : circuito.getMesas()){
-                    total += mesa.conteoVotosPartidoAlianza(partido);
+                    total += mesa.conteoVotosBlancoSenadores();
                 }
             }
         }
         return total;
     }
-
+    
     public int totalPorcentajeDeVotacion(){
         int votos = 0;
         int total = 0;
@@ -109,16 +113,79 @@ public class Distrito {
         return (total-votos);
     }
 
-    public Map<PartidoPoliticoAlianza,Integer> totalGeneralDeVotacionListaVotoBlanco(){
-        Map<PartidoPoliticoAlianza,Integer> listado = new HashMap<PartidoPoliticoAlianza,Integer>();
-        for (Seccion seccion : this.secciones) {
-            for (Circuito circuito : seccion.getCircuitos()){
-                for (MesaElectoral mesa : circuito.getMesas()){
-                    for (PartidoPoliticoAlianza partido : mesa.getPartidos()) {
-                        if(Objects.nonNull(listado.get(partido))){
-                            listado.replace(partido, ( listado.get(partido) + mesa.conteoVotosPartidoAlianza(partido) ) );
-                        } else {
-                            listado.put(partido, mesa.conteoVotosPartidoAlianza(partido));
+    public Map<PartidoPoliticoAlianza,Double> totalVotosPartidoAlianza(){
+        int tmp = -10;
+        Lista tmpList = null;
+        Map<PartidoPoliticoAlianza,Double> listado = new HashMap<PartidoPoliticoAlianza,Double>();
+        for (Seccion seccion : secciones) {
+            for (Circuito circuito : seccion.getCircuitos()) {
+                for (MesaElectoral mesa : circuito.getMesas()) {
+                    Iterator<Integer> it = mesa.getVotosDiputados().keySet().iterator();
+                    while(it.hasNext()){
+                        tmp = it.next();
+                        tmpList = CamaraElectoral.buscarLista(tmp);
+                        if(Objects.nonNull(listado.get(tmpList.getPartido()))){
+                            listado.replace(tmpList.getPartido(), (listado.get(tmpList.getPartido())+(mesa.getVotosDiputados().get(tmp)/2)));
+                        }else{
+                            listado.put(tmpList.getPartido(), Double.valueOf(mesa.getVotosDiputados().get(tmp)/2));
+                        }
+                    }
+
+                    it = mesa.getVotosSenadores().keySet().iterator();
+                    while(it.hasNext()){
+                        tmp = it.next();
+                        tmpList = CamaraElectoral.buscarLista(tmp);
+                        if(Objects.nonNull(listado.get(tmpList.getPartido()))){
+                            listado.replace(tmpList.getPartido(), (listado.get(tmpList.getPartido())+(mesa.getVotosSenadores().get(tmp)/2)));
+                        }else{
+                            listado.put(tmpList.getPartido(), Double.valueOf(mesa.getVotosSenadores().get(tmp)/2));
+                        }
+                    }
+                }
+            }
+        }
+        return listado;
+    }
+
+    public Map<PartidoPoliticoAlianza,Double> totalVotosSenadores(){
+        int tmp = -10;
+        Lista tmpList = null;
+        Map<PartidoPoliticoAlianza,Double> listado = new HashMap<PartidoPoliticoAlianza,Double>();
+        for (Seccion seccion : secciones) {
+            for (Circuito circuito : seccion.getCircuitos()) {
+                for (MesaElectoral mesa : circuito.getMesas()) {
+                    Iterator<Integer> it = mesa.getVotosDiputados().keySet().iterator();
+                    it = mesa.getVotosSenadores().keySet().iterator();
+                    while(it.hasNext()){
+                        tmp = it.next();
+                        tmpList = CamaraElectoral.buscarLista(tmp);
+                        if(Objects.nonNull(listado.get(tmpList.getPartido()))){
+                            listado.replace(tmpList.getPartido(), (listado.get(tmpList.getPartido())+mesa.getVotosSenadores().get(tmp)));
+                        }else{
+                            listado.put(tmpList.getPartido(), Double.valueOf(mesa.getVotosSenadores().get(tmp)));
+                        }
+                    }
+                }
+            }
+        }
+        return listado;
+    }
+
+    public Map<PartidoPoliticoAlianza,Double> totalVotosDiputados(){
+        int tmp = -10;
+        Lista tmpList = null;
+        Map<PartidoPoliticoAlianza,Double> listado = new HashMap<PartidoPoliticoAlianza,Double>();
+        for (Seccion seccion : secciones) {
+            for (Circuito circuito : seccion.getCircuitos()) {
+                for (MesaElectoral mesa : circuito.getMesas()) {
+                    Iterator<Integer> it = mesa.getVotosDiputados().keySet().iterator();
+                    while(it.hasNext()){
+                        tmp = it.next();
+                        tmpList = CamaraElectoral.buscarLista(tmp);
+                        if(Objects.nonNull(listado.get(tmpList.getPartido()))){
+                            listado.replace(tmpList.getPartido(), (listado.get(tmpList.getPartido())+(mesa.getVotosDiputados().get(tmp))));
+                        }else{
+                            listado.put(tmpList.getPartido(), Double.valueOf(mesa.getVotosDiputados().get(tmp)));
                         }
                     }
                 }

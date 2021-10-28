@@ -60,4 +60,12 @@ public class Ventana extends JFrame{
         salida.add(button2);
         return salida;
     }
+
+    public static JPanel crearPanelMedio(JCheckBox check,JButton boton){
+        JPanel salida = new JPanel();
+        salida.setLayout(new BoxLayout(salida, BoxLayout.Y_AXIS));
+        salida.add(check);
+        salida.add(boton);
+        return salida;
+    }
 }
