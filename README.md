@@ -1,1 +1,58 @@
-# TrabajoVotacionGrupalPOO
+para entrar como admin ingresar en el inicio de usuario los siguientes datos
+dni: Debug Mode 1235
+presionar enviar cerrar el cartel de usuario no encontrado y presionar ctrl+shift+space
+tambien se puede iniciar si se ingresa el argumento debugmode al iniciar el programa
+
+Usuario: DireccionNacionalElectoral
+Password: Votacion2021
+
+Lista de dnis validos para votar
+
+22023144
+42312141
+31032412
+45412513
+25123551
+9324123,
+46351513
+47312341
+35151245
+46315341
+46312341
+42314562
+20212223
+21222324
+22232425
+23242526
+24252627
+25262728
+26272829
+27282930
+28293031
+29303132
+30313233
+31323334
+32333435
+33343536
+34353637
+35363738
+42398641
+42556681
+40312342
+42872721
+45676416
+39409168
+41152375
+35170437
+42528065
+39970457
+34615848
+36810217
+34273975
+46062822
+39392984
+47793573
+32705316
+45112517
+38712016
+20134145
