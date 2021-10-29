@@ -1,0 +1,280 @@
+/**
+
+ * Nombre de clase: MesaElectoral 
+
+ * Esta clase lleva registro y verificacion de los electores y estadisticas de votos
+ * en la mesa correspondiente
+
+ * @version: 28/10/2021/A
+
+ * @autores: Caraballo Ian, Craco Iván, Serantes Matias
+
+ */
+
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
+
+public class MesaElectoral {
+    private ElectorInscripto presidente;
+    private ElectorInscripto suplenteDePresidente;
+    private List<ElectorInscripto> electores;
+    private Map<Integer,Integer> votosDiputados = new HashMap<Integer,Integer>();
+    private Map<Integer,Integer> votosSenadores = new HashMap<Integer,Integer>();
+    private int votosFaltantes;
+    private int numeroDeMesa;
+    
+    
+    /**
+     * Constructor para la Mesa Electoral
+     * @param electores
+     * @param listas
+     * Electores define la lista de ElectorInscripto y listas agrega
+     * candidatos a la Lista.
+     * Se establece votosFaltantes como la cantidad de electores en la lista electores.
+     */
+    
+    public MesaElectoral(List<ElectorInscripto> electores, List<Lista> listas) {
+        this.electores = electores;
+        ObtenerAutoridades();
+        this.votosFaltantes = electores.size();
+        agregarCandidatos(listas);
+    }
+    
+    /**
+     * Constructor para la Mesa Electoral
+     * @param electores
+     * electores define la lista de ElectorInscripto.
+     * Se establece votosFaltantes como la cantidad de electores en la lista electores.
+     */    
+    public MesaElectoral(List<ElectorInscripto> electores) {
+        this.electores = electores;
+        ObtenerAutoridades();
+        this.votosFaltantes = electores.size();
+    }
+    
+    /**
+     * Obtiene las autoridades de mesa
+     * @void
+     */    
+    private void ObtenerAutoridades(){
+        int i = 0;
+        for (int j=0; j<electores.size();j++) {
+            if(electores.get(j).getEdad()>=18 && electores.get(j).getEdad()<=70){
+                if(i==0){
+                    this.presidente = electores.get(j);
+                }
+                if(i==1){
+                    this.suplenteDePresidente = electores.get(j);
+                }
+                i++;
+            }
+            if(i==2){
+                break;
+            }
+        }
+    }
+
+    /**
+     * Recorre el List listas y agrega en el Map de votosDiputados y
+     * en el Map de votosSenadores el número de cada lista.
+     * @void
+     * @param listas
+     */      
+    public void agregarCandidatos(List<Lista> listas){
+        for (Lista lista : listas) {
+            this.votosDiputados.put(lista.getNroDeLista(), 0);
+            this.votosSenadores.put(lista.getNroDeLista(), 0);
+        }
+    }
+    
+    /**
+     * Agrega el número de lista de la lista pasada por parámetro
+     * al Map de votosDiputados y
+     * al Map de votosSenadores.
+     * @void
+     * @param lista
+     */      
+    public void agregarCandidatos(Lista lista){
+        this.votosDiputados.put(lista.getNroDeLista(), 0);
+        this.votosSenadores.put(lista.getNroDeLista(), 0);
+    }
+    
+    /**
+     * @return ElectorInscripto
+     */      
+    public ElectorInscripto getPresidente() {
+        return this.presidente;
+    }
+
+    /**
+     * @param presidente
+     * @void
+     */    
+    public void setPresidente(ElectorInscripto presidente) {
+        this.presidente = presidente;
+    }
+    
+    
+    /**
+     * @return ElectorInscripto
+     */    
+    public ElectorInscripto getSuplenteDePresidente() {
+        return this.suplenteDePresidente;
+    }
+
+    /**
+     * @param suplenteDePresidente
+     * @void
+     */        
+    public void setSuplenteDePresidente(ElectorInscripto suplenteDePresidente) {
+        this.suplenteDePresidente = suplenteDePresidente;
+    }
+    
+    
+    /**
+     * @return List ElectorInscripto
+     */    
+    public List<ElectorInscripto> getElectores() {
+        return this.electores;
+    }
+
+    /**
+     * @param electores
+     * @void
+     */        
+    public void setElectores(List<ElectorInscripto> electores) {
+        this.electores = electores;
+    }
+
+    /**
+     * @param elector
+     * @void
+     */        
+    public void setElectores(ElectorInscripto elector) {
+        this.electores.add(elector);
+    }
+    
+    
+    /**
+     * Verifica si el elector pasado por parámetro votó.
+     * @param elector
+     * @return boolean
+     */ 
+    public Boolean verificarElector(ElectorInscripto elector){
+        for (ElectorInscripto electorInscripto : electores) {
+            if(electorInscripto.equals(elector)){
+                if(!elector.getVoto()){
+                    return true;
+                } else {
+                    return false;
+                }
+            }
+        }
+        return false;
+    }
+    
+    
+    /**
+     * Retorna un entero que es el resultado de recorrer el Map de votosDiputados
+     * con un iterador y almacenarlo en una variable.
+     * @return int
+     */ 
+    public int conteoVotantes(){
+        int total = 0;
+        Iterator<Integer> it = votosDiputados.keySet().iterator();
+        while(it.hasNext()){
+            Integer list = it.next();
+            total += votosDiputados.get(list);
+        }
+        return total;
+    }
+
+    /**
+     * @return Map
+     */    
+    public Map<Integer,Integer> getVotosDiputados(){
+        return this.votosDiputados;
+    }
+    
+    /**
+     * @return Map
+     */    
+    public Map<Integer,Integer> getVotosSenadores(){
+        return this.votosSenadores;
+    }
+       
+    /**
+     * Retorna un entero de votos en blanco a Senadores
+     * @return int
+     */ 
+    public int conteoVotosBlancoSenadores(){
+        return votosSenadores.get(-1);
+    }
+        
+    /**
+     * Retrona un entero de votos en blanco a Diputados
+     * @return int
+     */ 
+    public int conteoVotosBlancoDiputados(){
+        return votosDiputados.get(-1);
+    }
+       
+    /**
+     * Retorna la cantidad de votos faltantes en la mesa
+     * @return Integer
+     */ 
+    public int getVotosFaltantes(){
+        return this.votosFaltantes;
+    }
+      
+    /**
+     * Retorna el porcentaje de ausencia de electores
+     * @return Double
+     */ 
+    public Double getPorcentajeAusencia(){
+        return Double.valueOf((this.votosFaltantes*100)/electores.size());
+    }
+    
+    /**
+     * Retorna el total de electores.
+     * @return int
+     */     
+    public int getTotalVotantes(){
+        return this.electores.size();
+    }
+    
+    
+    /**
+     * Método que permite al elector llevar a cabo la votación,
+     * cuenta el voto y marca al usuario que votó.
+     * @param votante
+     * @param diputado
+     * @param senador
+     * @void
+     */ 
+    public void Votar(ElectorInscripto votante, Integer diputado, Integer senador){
+        this.votosDiputados.replace(diputado, votosDiputados.get(diputado)+1);
+        this.votosSenadores.replace(senador, votosDiputados.get(senador)+1);
+        votante.setVoto();
+        this.votosFaltantes -= 1;
+    }
+    
+    
+    /**
+     * @param numero
+     * @void
+     */           
+    public void setNumeroMesa(int numero){
+        this.numeroDeMesa = numero;
+    }
+    
+    /**
+     * Retorna String del número de mesa
+     * @return String
+     */        
+    public String toString(){
+        return Integer.toString(numeroDeMesa);
+    }
+}

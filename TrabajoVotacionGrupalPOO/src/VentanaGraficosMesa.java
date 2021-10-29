@@ -1,10 +1,22 @@
+
 import java.awt.*;
 import javax.swing.*;
 import java.awt.event.*;
 import java.util.Iterator;
 import java.util.Map;
 
+/**
+ * Nombre de clase:  VentanaGraficosMesa
+ * Genera una ventana con graficos de una mesa en especifico
+ * @version: 28/10/2021/A
+ * @autores: Caraballo Ian, Craco Ivan, Serantes Matias
+ */
+
 public class VentanaGraficosMesa {
+	/**
+	 * Abre una ventana con un selector para los graficos de los datos de una mesa
+	 * @param mesa Mesa a seleccionar
+	 */
     public VentanaGraficosMesa(MesaElectoral mesa){
         try{
             Ventana v = new Ventana("Resultados de mesa actuales", 600, 600, false);
@@ -57,6 +69,11 @@ public class VentanaGraficosMesa {
             JOptionPane.showMessageDialog(null,"Aun no se realizo ningun voto en esta mesa por lo que no hay info que mostrar");
         }
     }
+    /**
+     * Chequea que los datos de un mapa de tipo<numeroLista,votos> no este vacio
+     * @param votos mapa con los datos de lista-cantidad de votos
+     * @return devuelve si en el total hay o no votos como un booleano
+     */
     private static boolean vacio(Map<Integer,Integer> votos){
         Iterator<Integer> it = votos.keySet().iterator();
         int i = 0;

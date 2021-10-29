@@ -2,7 +2,18 @@ import java.awt.*;
 import javax.swing.*;
 import java.awt.event.*;
 
+/**
+ * Nombre de clase:  VentanaAdminSeccion
+ * Genera una ventana con la informacion de las secciones de un distrito especifico
+ * @version: 22/09/2016/A
+ * @autores: Caraballo Ian, Craco Ivan, Serantes Matias
+ */
+
 public class VentanaAdminSeccion {
+	/**
+	 * Abre una ventana con el listado de secciones de un distrito especifico
+	 * @param dist El distrito del que se quieren ver las secciones
+	 */
     public VentanaAdminSeccion(Distrito dist){
         Ventana v = new Ventana("admin Seccion", 600, 600, false);
         Container cp = v.getContentPane();

@@ -1,10 +1,21 @@
 import java.awt.*;
 import java.awt.event.*;
 import java.util.Objects;
-
 import javax.swing.*;
 
+/**
+ * Nombre de clase:  VentanaVotacion
+ * Genera una ventana que permite votar a un usuario especifico
+ * @version: 28/10/2021/A
+ * @autores: Caraballo Ian, Craco Ivan, Serantes Matias
+ */
+
+
 public class VentanaVotacion {
+	/**
+	 * Abre una ventana que permite votar a un usuario
+	 * @param input El usuario que tiene que votar
+	 */
     public VentanaVotacion(ElectorInscripto input){
         MesaElectoral mesa = input.getMesaAsignda();
         Ventana v = new Ventana("Votacion", 600, 600, false);
@@ -22,6 +33,7 @@ public class VentanaVotacion {
                 diputados.addItem(list);
             }
         }
+        JButton botDiputados = new JButton("Diputados de la lista");
         JLabel labSenadores = new JLabel("Lista de Diputados a votar: ");
         JComboBox<Lista> senadores = new JComboBox<Lista>();
         for (Lista list : Main.listas) {
@@ -29,6 +41,7 @@ public class VentanaVotacion {
                 senadores.addItem(list);
             }
         }
+        JButton botSenadores = new JButton("Senadores de la lista");
         JButton votar = new JButton("Votar");
         JButton cancelar = new JButton("Cancelar");
         votar.addActionListener(new ActionListener(){
@@ -42,16 +55,38 @@ public class VentanaVotacion {
                 v.dispose();
             }
         });
+        
+        botDiputados.addActionListener(new ActionListener(){
+            public void actionPerformed(ActionEvent e) {
+                Lista tmp = (Lista)diputados.getSelectedItem();
+                if(!(tmp.getNroDeLista()==-1)) {
+                	new VentanaInfoLista(tmp,Cargo.DIPUTADO);
+                } else {
+                	JOptionPane.showMessageDialog(null,"El voto en blanco no contiene candidatos");
+                }
+            }
+        });
+        
+        botSenadores.addActionListener(new ActionListener(){
+            public void actionPerformed(ActionEvent e) {
+                Lista tmp = (Lista)senadores.getSelectedItem();
+                if(!(tmp.getNroDeLista()==-1)) {
+                	new VentanaInfoLista(tmp,Cargo.SENADOR);
+                } else {
+                	JOptionPane.showMessageDialog(null,"El voto en blanco no contiene candidatos");
+                }
+            }
+        });
 
         JPanel panel = new JPanel();
         panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
         panel.add(Box.createVerticalStrut(20));
         panel.add((Ventana.crearPanelMedio(labNombApel,labDni)));
         panel.add(Box.createVerticalGlue());
-        panel.add((Ventana.crearPanelMedio(labSenadores,senadores)));
+        panel.add((Ventana.crearPanelMedio(labSenadores,senadores,botSenadores)));
         panel.add(Box.createVerticalGlue());
         panel.add(Box.createVerticalGlue());
-        panel.add((Ventana.crearPanelMedio(labDiputados,diputados)));
+        panel.add((Ventana.crearPanelMedio(labDiputados,diputados,botDiputados)));
         panel.add(Box.createVerticalGlue());
 
         cp.add(titulo,BorderLayout.NORTH);

@@ -5,6 +5,20 @@ import java.awt.event.*;
 import javax.swing.*;
 import java.awt.font.TextAttribute;
 
+/**
+
+ * Nombre de clase: CamaraElectoral 
+
+ * Esta clase incluye listas a las mesas, comprobacion de las mismas para que no tengan el mismo candidato, busqueda
+ * de dichas y devolver partidos politicos
+
+
+ * @version: 28/10/2021/A
+
+ * @autores: Caraballo Ian, Craco Ivan, Serantes Matias
+
+ */
+
 public class Main {
     public static List<Candidato> candidatos = GenerarDatos.candidatos();
     public static List<PartidoPoliticoAlianza> partidos = GenerarDatos.partidos();
@@ -20,13 +34,18 @@ public class Main {
 
     public static Font ftitulo = new Font("TimesRoman", (Font.BOLD + Font.ITALIC), 20);
     public static Map subrrayado = ftitulo.getAttributes();
+    /**
+     * Realiza tareas de inicializacion de la aplicacion y parte de la carga de datos
+     */
     private static void init(){
         GenerarDatos.asignarListasMesas();
         subrrayado.put(TextAttribute.UNDERLINE, TextAttribute.UNDERLINE_ON);
         ftitulo = ftitulo.deriveFont(subrrayado);
         asignarMesas();
     }
-
+    /**
+     * Asigna a los usuarios la mesa en la que tienen que votar
+     */
     private static void asignarMesas(){
         for (MesaElectoral mesa : Main.mesasElectorales) {
             for (ElectorInscripto elector : mesa.getElectores()) {
@@ -43,6 +62,9 @@ public class Main {
         }
     }
 
+    /**
+     * inicia la interfaz del modo usuario
+     */
     public static void usermode(){
         
         //inicializa la fuente
@@ -121,6 +143,13 @@ public class Main {
         });
     }
 
+    /**
+     * main del programa si se inicia con el parametro 'debugmode' se abrira tambien el modo administrador
+     * el mismo puede ser ingresado si se escribe 'Debug Mode 1235' en dni, se apreta el boton enviar, se cierra el cartel y sin tocar otra cosa se presiona 'ctrl+shift+espacio'
+     * el usuario de administrador es: 'DireccionNacionalElectoral'
+     * la clave de administrador es: 'Votacion2021'
+     * @param args se puede ingresar debugmode para iniciar con el login de admin
+     */
     public static void main(String[] args) {
         if(args.length==1){
             if(args[0].equals("debugmode")){

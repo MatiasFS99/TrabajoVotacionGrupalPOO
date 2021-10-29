@@ -1,4 +1,3 @@
-//basado en codigo de https://www.roseindia.net/java/example/java/swing/draw-pie-chart.shtml
 import java.awt.*;
 import java.awt.event.*;
 import java.awt.font.*;
@@ -11,6 +10,19 @@ import java.util.List;
 import java.util.Map;
 import javax.swing.*;
 
+//basado en codigo de https://www.roseindia.net/java/example/java/swing/draw-pie-chart.shtml
+/**
+ *
+ * Nombre de clase: GraficoTorta
+ *
+ * Genera un componente que es un grafico de torta con porcentajes y etiquetas
+ *
+ * @version: 28/10/2021/A
+ *
+ * @autores: Caraballo Ian, Craco Ivan, Serantes Matias
+ *
+ */
+
 public class GraficoTorta extends JPanel
 {
     private BufferedImage image;
@@ -20,6 +32,10 @@ public class GraficoTorta extends JPanel
     private Double[] marks = null;
     private String[] names = null;
 
+    /**
+     * crea un grafico de torta con los datos pasados como (partido,cantidadDeVotos) sacando el porcentaje
+     * @param lista Lista de datos a sacar porcentaje y graficar
+     */
     public GraficoTorta(Map<PartidoPoliticoAlianza,Double> lista)
     {
         List<String> nombres = new ArrayList<String>();
@@ -56,6 +72,11 @@ public class GraficoTorta extends JPanel
         {});
     }
 
+    /**
+     * Genera un grafico de torta con los datos ingresados y lo devuelve como componente
+     * @param nombres Array con las etiquetas a usar
+     * @param datos Array con los datos de las etiquetas con los que se calculara el porcentaje
+     */
     public GraficoTorta(String[] nombres, int[] datos)
     {
         List<String> TmpNombres = new ArrayList<String>();
@@ -92,6 +113,11 @@ public class GraficoTorta extends JPanel
         {});
     }
 
+    /**
+     * Genera un grafico de torta con los datos ingresados y lo devuelve como componente
+     * @param nombres Array con las etiquetas a usar
+     * @param datos Array con los datos de las etiquetas con los que se calculara el porcentaje
+     */
     public GraficoTorta(String[] nombres, Double[] datos)
     {
         List<String> TmpNombres = new ArrayList<String>();
@@ -129,6 +155,9 @@ public class GraficoTorta extends JPanel
         {});
     }
 
+    /**
+     * Aplica los cambios al componente
+     */
     protected void paintComponent(Graphics graphics)
     {
         super.paintComponent(graphics);
@@ -137,6 +166,9 @@ public class GraficoTorta extends JPanel
         createChartImage();
         graphics2d.drawImage(image, 0, 0, this);
     }
+    /**
+     * Calcula los datos y genera la imagen del grafico de torta
+     */
     private void createChartImage()
     {
         int width = getWidth();

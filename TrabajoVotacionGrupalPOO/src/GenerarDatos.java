@@ -1,8 +1,19 @@
 import java.util.ArrayList;
 import java.util.List;
 
-public class GenerarDatos {
+/**
+ *
+ * Nombre de clase: GenerarDatos
+ *
+ * Carga los datos a usar durante el uso del programa
+ *
+ * @version: 28/10/2021/A
+ *
+ * @autores: Caraballo Ian, Craco Ivan, Serantes Matias
+ *
+ */
 
+public class GenerarDatos {
     private static String[] LugaresPersonas = new String[]{
         "RioTercero",
         "Marcos Paz",
@@ -19,6 +30,10 @@ public class GenerarDatos {
         "Mataderos"
     };
 
+    /**
+     * crea las personas que votaran
+     * @return lista de personas
+     */
     public static List<Persona> personas(){
         List<Persona> salida = new ArrayList<Persona>();
         // salida.add(new Persona(nombre, apellido, dni, FchaNacimiento));
@@ -73,6 +88,10 @@ public class GenerarDatos {
         return salida;
     }
 
+    /**
+     * crea los electores
+     * @return lista de electores
+     */
     public static List<ElectorInscripto> elector(){
         List<ElectorInscripto> salida = new ArrayList<ElectorInscripto>();
         int j=0;
@@ -86,6 +105,10 @@ public class GenerarDatos {
         return salida;
     }
 
+    /**
+     * Crea los partidospoliticos o alianzas
+     * @return lista de partidos-alianzas
+     */
     public static List<PartidoPoliticoAlianza> partidos(){
         //ninguno de los partidos existe hasta donde se, ni estan basados en ningun partido real
         List<PartidoPoliticoAlianza> salida = new ArrayList<PartidoPoliticoAlianza>();
@@ -95,6 +118,9 @@ public class GenerarDatos {
         return salida;
     }
 
+    /**
+     * asigna las listas a sus correspondientes mesas
+     */
     public static void asignarListasMesas(){
         for (Seccion sec : Main.distritos.get(0).getSecciones()) {
             for (Circuito circ : sec.getCircuitos()) {
@@ -113,11 +139,16 @@ public class GenerarDatos {
             }
         }
     }
+    
+    /**
+     * Crea a los candidatos
+     * @return lista de candidatos
+     */
     public static List<Candidato> candidatos(){
         List<Candidato> salida = new ArrayList<Candidato>();
         salida.add(new Candidato("Izan", "Real", 31350291, "26/12/1975", Cargo.SENADOR, new Domicilio("", "", "")));
         salida.add(new Candidato("Edgar", "Aviles", 33562588, "03/09/1972", Cargo.SENADOR, new Domicilio("", "", "")));
-        salida.add(new Candidato("Letícia", "Dorado", 40213123, "05/03/1971", Cargo.DIPUTADO, new Domicilio("", "", "")));
+        salida.add(new Candidato("Letï¿½cia", "Dorado", 40213123, "05/03/1971", Cargo.DIPUTADO, new Domicilio("", "", "")));
         salida.add(new Candidato("Siham", "Alcazar", 44662520, "15/12/1985", Cargo.DIPUTADO, new Domicilio("", "", "")));
         salida.add(new Candidato("Jasmin", "Dupont", 44006157, "30/06/1978", Cargo.DIPUTADO, new Domicilio("", "", "")));
         salida.add(new Candidato("Lola", "Pulido", 39180217, "18/01/1990", Cargo.DIPUTADO, new Domicilio("", "", "")));
@@ -125,7 +156,7 @@ public class GenerarDatos {
         salida.add(new Candidato("Jose", "Duran", 43596024, "25/07/1973", Cargo.SENADOR, new Domicilio("", "", "")));
         salida.add(new Candidato("Miguel", "Vera", 33080472, "01/05/1978", Cargo.SENADOR, new Domicilio("", "", "")));
         salida.add(new Candidato("Manuela", "Avila", 41348694, "11/09/1987", Cargo.DIPUTADO, new Domicilio("", "", "")));
-        salida.add(new Candidato("Michael", "Ureña", 41077481, "07/01/1973", Cargo.DIPUTADO, new Domicilio("", "", "")));
+        salida.add(new Candidato("Michael", "Ureï¿½a", 41077481, "07/01/1973", Cargo.DIPUTADO, new Domicilio("", "", "")));
         salida.add(new Candidato("Jean", "Mesa", 34982920, "29/08/1984", Cargo.DIPUTADO, new Domicilio("", "", "")));
         salida.add(new Candidato("Cristobal", "Gamero", 40463208, "17/06/1973", Cargo.DIPUTADO, new Domicilio("", "", "")));
         salida.add(new Candidato("Amina", "Poveda", 30104120, "27/10/1988", Cargo.DIPUTADO, new Domicilio("", "", "")));
@@ -140,6 +171,10 @@ public class GenerarDatos {
         return salida;
     }
 
+    /**
+     * Crea a las listas
+     * @return Lista de listasElectorales
+     */
     public static List<Lista> listas(){
         List<Lista> salida = new ArrayList<Lista>();
         Lista l1 = new Lista("Lista Progreso", 1, Main.partidos.get(1),Main.candidatos.subList(0, 7));
@@ -163,6 +198,10 @@ public class GenerarDatos {
         return salida;
     }
 
+    /**
+     * crea las mesas electorales
+     * @return Lista de Mesas
+     */
     public static List<MesaElectoral> mesasElectorales(){
         int j=0;
         List<MesaElectoral> salida = new ArrayList<MesaElectoral>();
@@ -182,6 +221,10 @@ public class GenerarDatos {
         return salida;
     }
 
+    /**
+     * Crea los circuitos y les asigna sus mesas
+     * @return lista de circuitos
+     */
     public static List<Circuito> circuitos(){
         List<Circuito> salida = new ArrayList<Circuito>();
         String lectura = null;
@@ -224,6 +267,10 @@ public class GenerarDatos {
         return salida;
     }
 
+    /**
+     * Crea las secciones y les asigna sus correspondientes circuitos
+     * @return lista de secciones
+     */
     public static List<Seccion> secciones(){
         int j = 0;
         List<Seccion> salida = new ArrayList<Seccion>();
@@ -235,6 +282,10 @@ public class GenerarDatos {
         return salida;
     }
 
+    /**
+     * crea los distritos y le asigna las secciones
+     * @return lista de distritos
+     */
     public static List<Distrito> distritos(){
         List<Distrito> salida = new ArrayList<Distrito>();
         salida.add(new Distrito("BSAS", 5, 2, Main.secciones.subList(0, 2)));

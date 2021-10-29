@@ -2,7 +2,18 @@ import java.awt.*;
 import javax.swing.*;
 import java.awt.event.*;
 
+/**
+ * Nombre de clase:  VentanaAdminCircuito
+ * Genera una ventana con la informacion de los circuitos de una Seccion especificada
+ * @version: 28/10/2021/A
+ * @autores: Caraballo Ian, Craco Ivan, Serantes Matias
+ */
+
 public class VentanaAdminCircuito {
+	/**
+	 * Abre una ventana con los circuitos de una seccion especificada
+	 * @param sec seccion de la que se quieren ver los circuitos
+	 */
     public VentanaAdminCircuito(Seccion sec){
         Ventana v = new Ventana("Admin Circuito", 600, 600, false);
         Container cp = v.getContentPane();

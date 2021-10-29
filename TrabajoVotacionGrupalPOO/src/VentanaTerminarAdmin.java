@@ -2,7 +2,17 @@ import java.awt.*;
 import javax.swing.*;
 import java.awt.event.*;
 
+/**
+ * Nombre de clase:  VentanaTerminarAdmin
+ * Genera una ventana con chequeo de seguridad para finalizar las elecciones
+ * @version: 28/10/2021/A
+ * @autores: Caraballo Ian, Craco Ivan, Serantes Matias
+ */
+
 public class VentanaTerminarAdmin {
+	/**
+	 * Abre un login y pide confirmacion del administrador para finalizar las elecciones
+	 */
     public VentanaTerminarAdmin(){
         Ventana v = new Ventana("Terminar Elecciones", 600, 600, false);
         Container cp = v.getContentPane();

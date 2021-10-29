@@ -2,7 +2,17 @@ import java.awt.*;
 import javax.swing.*;
 import java.awt.event.*;
 
+/**
+ * Nombre de clase:  VentanaDistritoAdmin
+ * Genera una ventana con la informacion de los distritos
+ * @version: 28/10/2021/A
+ * @autores: Caraballo Ian, Craco Ivan, Serantes Matias
+ */
+
 public class VentanaDistritoAdmin {
+	/**
+	 * Abre una ventana con los datos de los distritos
+	 */
     public VentanaDistritoAdmin(){
         Ventana v = new Ventana("Admin distrito", 600, 600, false);
         Container cp = v.getContentPane();

@@ -1,7 +1,19 @@
 import java.awt.*;
 import javax.swing.*;
 import java.awt.event.*;
+
+/**
+ * Nombre de clase:  VentanaAdminMesas
+ * Genera una ventana con la informacion de una mesa en especifico y te deja ver graficos de las estadisticas
+ * @version: 28/10/2021/A
+ * @autores: Caraballo Ian, Craco Ivan, Serantes Matias
+ */
+
 public class VentanaAdminMesas {
+	/**
+	 * Abre una ventana con las mesas de un circuito especifico
+	 * @param circ El circuito del que se quieren ver las mesas
+	 */
     public VentanaAdminMesas(Circuito circ){
         Ventana v = new Ventana("Admin Circuito", 600, 600, false);
         Container cp = v.getContentPane();

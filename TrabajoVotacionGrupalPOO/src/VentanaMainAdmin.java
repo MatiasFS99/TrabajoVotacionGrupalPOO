@@ -1,8 +1,17 @@
 import java.awt.*;
 import javax.swing.*;
 import java.awt.event.*;
+/**
+ * Nombre de clase:  VentanaMainAdmin
+ * Genera una ventana con opcion para ver el estado actual de las elecciones o finalizarlas
+ * @version: 28/10/2021/A
+ * @autores: Caraballo Ian, Craco Ivan, Serantes Matias
+ */
 
 public class VentanaMainAdmin {
+	/**
+	 * Abre una ventana con las opciones para ver el estado de las elecciones o finalizarlas
+	 */
     public VentanaMainAdmin(){
         Ventana v = new Ventana("Administrador", 600, 600, false);
         Container cp = v.getContentPane();

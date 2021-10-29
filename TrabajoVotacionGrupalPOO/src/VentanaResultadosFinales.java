@@ -8,7 +8,18 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
+/**
+ * Nombre de clase:  VentanaResultadosFinal
+ * Genera una ventana con los datos finales de la eleccion por distrito
+ * @version: 28/10/2021/A
+ * @autores: Caraballo Ian, Craco Ivan, Serantes Matias
+ */
+
+
 public class VentanaResultadosFinales {
+	/**
+	 * Abre una ventana mostrando los resultados finales de la eleccion
+	 */
     public VentanaResultadosFinales(){
         Ventana v = new Ventana("Resultados finales", 700, 700, true);
         Container cp = v.getContentPane();
@@ -52,6 +63,10 @@ public class VentanaResultadosFinales {
         v.setVisible(true);
     }
 
+    /**
+     * Busca los partidos politicos que hayan juntado mas de 1.5% de los votos y devuelve sus nombres
+     * @return nombres de los partidos que salen de las paso
+     */
     private static String[] pasan(){
         List<String> salida = new ArrayList<String>();
         int totalVotos = 0;
@@ -85,6 +100,10 @@ public class VentanaResultadosFinales {
         return arrSalida;
     }
 
+    /**
+     * Calcula el porcentaje total de asistencia a los comicios
+     * @return Devuelve el porcentaje en string
+     */
     private static String asistencia(){
         Double tot = 0.0;
         for (Distrito dist : Main.distritos) {

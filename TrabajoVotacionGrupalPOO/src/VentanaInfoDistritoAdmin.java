@@ -1,9 +1,20 @@
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 
+/**
+ * Nombre de clase:  VentanaInfoDistritoAdmin
+ * Genera una ventana con la informacion de las estadisticas de un distrito especifico
+ * @version: 28/10/2021/A
+ * @autores: Caraballo Ian, Craco Ivan, Serantes Matias
+ */
 
 public class VentanaInfoDistritoAdmin {
+	/**
+	 * Abre una ventana con la informacion de un distrito especificado
+	 * @param distrito El distrito del que se quieren obtener los datos
+	 */
     public VentanaInfoDistritoAdmin(Distrito distrito){
         try{
             Ventana v = new Ventana("Informe Distrito", 600, 600, false);

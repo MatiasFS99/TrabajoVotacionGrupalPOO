@@ -8,8 +8,18 @@ import java.util.Base64;
 import javax.crypto.SecretKeyFactory;
 import javax.crypto.spec.PBEKeySpec;
 
+/**
+ * Nombre de clase:  VentanaLoginDebug
+ * Genera una ventana con la comprobacion de credenciales para ingresar al administrador
+ * @version: 28/10/2021/A
+ * @autores: Caraballo Ian, Craco Ivan, Serantes Matias
+ */
+
 public class VentanaLoginDebug {
     private int intentos = 3;
+    /**
+     * Abre una ventana con un login para entrar a las opciones de administrador
+     */
     public VentanaLoginDebug(){
         
         Ventana v = new Ventana("Inicio Administrador", 600, 600, false);
@@ -73,6 +83,11 @@ public class VentanaLoginDebug {
         v.setLocation(moverventana);
     }
 
+    /**
+     * Funcion para obtener el hash de un password
+     * @param password password de la que se desea obtener el hash
+     * @return hash del password ingresado
+     */
     public static String PassHash(String password) throws NoSuchAlgorithmException, InvalidKeySpecException{
         String strSalt = "@_M(FbH_H[m24!qU";
         byte[] salt = strSalt.getBytes();
@@ -83,6 +98,12 @@ public class VentanaLoginDebug {
         return enc.encodeToString(hash);
     }
 
+    /**
+     * Comprueba si el hash de usuario y el hash de password son validos
+     * @param user Hash del usuario a comprobar
+     * @param pass Hash del password a comprobar
+     * @return verdadero o falso segun sea valido o no
+     */
     public static boolean comprobarCredenciales(String user, String pass){
         return user.equals("pLb/0OEQpTniwgBxZ/i3gQ==") && pass.equals("SaGF+LYHTTIksZj+8Cio2A==");
     }
